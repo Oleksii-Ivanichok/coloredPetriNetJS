@@ -18,8 +18,6 @@ class ColoredPetriNet {
         if (currentTransition !== null && this.stepCounter<40) {
             this.showStep(currentTransition);
 
-            // this.places.forEach(place => place.show());
-            // console.log(this.places);
             this.stepCounter++;
             this.doTransition(currentTransition);
             this.run()
@@ -31,7 +29,6 @@ class ColoredPetriNet {
 
     }
     getTransition(transitions, places) {
-        // console.log(transitions);
         const foundTransition = transitions.find(transition => {
             const currentColor = transition.color;
             let check = true;
@@ -45,50 +42,17 @@ class ColoredPetriNet {
         });
 
         if (foundTransition) {
-            // console.log("Passed");
-            // console.log(foundTransition);
             return foundTransition;
         } else {
             return null;
         }
     }
 
-    // getTransition(transitions, places) {
-    //     console.log(transitions)
-    //     transitions.forEach(transition => {
-    //         const currentColor = transition.color;
-    //         // console.log(transition.color)
-    //         let check = true;
-    //         const elementHoldingOut = 1;
-    //         console.log(transition.holdingOut)
-    //         transition.holdingOut.forEach(holdingOut => {
-    //             console.log("element amount: " + holdingOut.amount);
-    //             console.log("element place: " + holdingOut.place);
-    //             console.log("element transition: ")
-    //             console.log(transition)
-    //             console.log("holdingOut place: "+holdingOut.place)
-    //             const amountToCompare = this.getAmountToCompare(holdingOut.place, currentColor)
-    //             if (amountToCompare === undefined || holdingOut.amount - amountToCompare < 0) {
-    //                 check = false;
-    //             }
-    //         })
-    //         if (check) {
-    //             console.log("passed")
-    //             console.log(transition)
-    //             return transition;
-    //         }
-    //     });
-
-    // }
-
 
     getAmountToCompare(place, colorToCompare) {
-        // console.log(this.places[place].points);
         const foundElement = this.places[place].points.find(element => element.color === colorToCompare);
 
         if (foundElement) {
-            // console.log(foundElement);
-            // console.log("color123: " + foundElement.color);
             return foundElement.holding;
         }
 
@@ -96,7 +60,6 @@ class ColoredPetriNet {
     }
 
     doTransition(transition) {
-        // console.log(transition.holdingOut);
         transition.holdingIn.map(element => element.add(element, transition.color, this.places))
         transition.holdingOut.map(element => element.remove(element, transition.color, this.places))
     }
@@ -109,9 +72,6 @@ class Place {
     }
     show(placeIndex) {
         console.log(`Points in place №${placeIndex}:`);
-        // this.points.forEach(point => {
-        //     console.log(`Color: ${point.color}, Holding: ${point.holding}`);
-        // });
         for (const index in this.points) {
             const point = this.points[index];
             console.log(`[${index}] Holding: ${point.holding}, Color: ${point.color} `);
@@ -262,12 +222,6 @@ function main() {
     coloredPetriNet.run();
     console.log(coloredPetriNet)
 
-    // console.log(coloredPetriNet);
-
-    // const pointsArr = [new Points(5, "red"), new Points(5, "red"), new Points(5, "red") ];
-
-    // const points1 = new Points(5, "red");
-    // console.log(points1.color);
 }
 
 main();
